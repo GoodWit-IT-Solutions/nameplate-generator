@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV File Upload to Python Backend</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Upload CSV File</h1>
+        <form id="dataForm">
+            <label for="file">Upload CSV:</label><br>
+            <input type="file" id="file" name="file" accept=".csv" required><br><br>
+            <input type="submit" value="Upload">
+        </form>
+
+        <p id="response"></p>
+    </div>
+
+    <script>
+        document.getElementById('dataForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData();
+            const fileInput = document.getElementById('file');
+            formData.append('file', fileInput.files[0]);
+
+            fetch('/submit', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // document.getElementById('response').innerText = "Server Response: " + JSON.stringify(data);
+                    document.getElementById('response').style.display = "block";
+
+                    if (data.download_link) {
+                        const downloadLink = document.createElement('a');
+                        downloadLink.href = `/download/${data.download_link}`;
+                        downloadLink.className = 'download-link'; 
+                        downloadLink.innerText = 'Download Images';
+                        document.getElementById('response').appendChild(downloadLink);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+</body>
+
+</html>
