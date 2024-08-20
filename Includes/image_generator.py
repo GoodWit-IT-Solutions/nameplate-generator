@@ -1,9 +1,10 @@
-def generate_images_from_csv(csv_file):
-    import pandas as pd
-    from PIL import Image, ImageDraw, ImageFont
-    import os
-    import datetime
+import pandas as pd
+from PIL import Image, ImageDraw, ImageFont
+import os
+import datetime
 
+def generate_images_from_csv(csv_file):
+    
     # Create the output directory with a timestamp
     timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     output_dir = f'generated_{timestamp}'
