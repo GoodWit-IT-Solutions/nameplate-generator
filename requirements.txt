@@ -5,4 +5,3 @@ rsa==4.9
 zipp==1.0.0
 pandas==2.2.1
 Pillow==9.0.1
-apparmor==4.0.2
