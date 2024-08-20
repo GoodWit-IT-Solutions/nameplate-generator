@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, render_template, send_file
-from Includes import image_generator
+# from Includes import image_generator
 import os
 import datetime
 import shutil
@@ -29,11 +29,11 @@ def submit():
         file.save(file_path)
         
         # Generate images from the CSV file
-        output_dir, num_images_generated = image_generator.generate_images_from_csv(file_path)
+        # output_dir, num_images_generated = image_generator.generate_images_from_csv(file_path)
         
         # Create a download link for the generated images
-        download_link = f'{output_dir}'
-        
+        # download_link = f'{output_dir}'
+        download_link = f'{fileName}'
         return jsonify({"status": "success", "message": "File uploaded successfully", "file": file.filename, "download_link": download_link, "num_images_generated": num_images_generated})
     
     else:
